@@ -15,20 +15,36 @@ assessmentButton.addEventListener( //イベント検知設計を追加
 
       // 診断結果表示エリアの作成
     resultDivision.innerText = '';
-    const heading = document.createElement('h3');
-    heading.innerText = '診断結果';
-    resultDivision.appendChild(heading);
 
-    const paragraph = document.createElement('p');
-    const result = assessment(userName);
-    paragraph.innerText = result;
-    resultDivision.appendChild(paragraph);
+    //headerDivisionの作成
+    const headerDivision = document.createElement('div');
+    headerDivision.setAttribute('class','card-body')
+    headerDivision.innerText = '診断結果';
+
+    //bodyDivisionの作成
+    const bodyDivision = document.createElement('div')
+    bodyDivision.setAttribute('class','card-body')
+
+    const paragraph = document.createElement('p')
+    paragraph.setAttribute('class','card-text')
+    const result = assessment(userName)
+    paragraph.innerText = result
+    bodyDivision.appendChild(paragraph)
+
+    // resultDivisionにBootstrapのスタイルを適応する
+    resultDivision.setAttribute('class','card')
+
+    //headerDivisionとbodyDivisionをresultDivisionに差し込む
+    resultDivision.appendChild(headerDivision)
+    resultDivision.appendChild(bodyDivision)
 
     // X投稿ボタンの作成
-    tweetDivision.innerText = ''; 
-        const anchor = document.createElement('a');
+      tweetDivision.innerText = '';
+    const anchor = document.createElement('a');
     const hrefValue =
-      'https://x.com/intent/tweet?button_hashtag=' + encoodeURIComponent('あなたのいいところ') + '&ref_src=twsrc%5Etfw';
+      'https://x.com/intent/tweet?button_hashtag=' +
+      encodeURIComponent('あなたのいいところ') +
+      '&ref_src=twsrc%5Etfw';
 
     anchor.setAttribute('href', hrefValue);
     anchor.setAttribute('class', 'twitter-hashtag-button');
@@ -36,7 +52,7 @@ assessmentButton.addEventListener( //イベント検知設計を追加
     anchor.innerText = 'Tweet #あなたのいいところ';
 
     tweetDivision.appendChild(anchor);
-   
+
     const script = document.createElement('script');
     script.setAttribute('src', 'https://platform.twitter.com/widgets.js');
     tweetDivision.appendChild(script);
